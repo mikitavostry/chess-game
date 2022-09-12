@@ -24,13 +24,20 @@ export class Board {
         }
     }
 
-    public addFigures() {
-        this.addBishops()
-        this.addKings()
-        this.addKnights()
-        this.addPawns()
-        this.addQueens()
-        this.addRooks()
+    public highlightCells(selectedCell: Cell) {
+        for (let i = 0; i < this.cells.length; i++) {
+            const row = this.cells[i]
+            for (let j = 0; j < row.length; j++) {
+                const target = row[j]
+                target.available = !!selectedCell?.figure?.canMove(target)
+            }
+        }
+    }
+
+    public getCopyBoard(): Board {
+        const newBoard = new Board()
+        newBoard.cells = this.cells
+        return newBoard
     }
 
     public getCell(x: number, y: number) {
@@ -73,5 +80,14 @@ export class Board {
         new Rook(Colors.BLACK, this.getCell(0, 0))
         new Rook(Colors.WHITE, this.getCell(7, 7))
         new Rook(Colors.BLACK, this.getCell(7, 0))
+    }
+
+    public addFigures() {
+        this.addBishops()
+        this.addKings()
+        this.addKnights()
+        this.addPawns()
+        this.addQueens()
+        this.addRooks()
     }
 }
