@@ -17,6 +17,15 @@ export class King extends Figure {
         if (!super.canMove(target)) {
             return false
         }
-        return true
+
+        for (let i = this.cell.x - 1; i < this.cell.x + 2; i++) {
+            for (let j = this.cell.y - 1; j < this.cell.y + 2; j++) {
+                if (target.x === i && target.y === j) {
+                    return true
+                }
+            }
+        }
+        return false
+
     }
 }
