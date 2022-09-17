@@ -7,7 +7,6 @@ import whiteLogo from '../../assets/white-knight.png'
 
 export class Knight extends Figure {
 
-    isFirtsStep: boolean = true
 
     constructor(color: Colors, cell: Cell) {
         super(color, cell)
@@ -23,6 +22,7 @@ export class Knight extends Figure {
         const dy = Math.abs(this.cell.y - target.y)
 
         return (dx === 1 && dy === 2) || (dx === 2 && dy === 1)
-
     }
+
+
 }
