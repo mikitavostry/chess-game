@@ -20,12 +20,31 @@ export class King extends Figure {
 
         for (let i = this.cell.x - 1; i < this.cell.x + 2; i++) {
             for (let j = this.cell.y - 1; j < this.cell.y + 2; j++) {
-                if (target.x === i && target.y === j) {
+                if (target.x === i && target.y === j && !this.isKingUnderAtttack(target)) {
                     return true
                 }
             }
         }
         return false
 
+    }
+
+    isKingUnderAtttack(target: Cell): boolean {
+        for (let i = 0; i < this.cell.board.cells.length; i++) {
+            const row = this.cell.board.cells[i]
+            for (let j = 0; j < row.length; j++) {
+                const cell = row[j]
+                switch (cell.figure?.name) {
+                    case FigureNames.BISHOP:
+
+                    case FigureNames.KNIGHT:
+                    case FigureNames.PAWN:
+                    case FigureNames.QUEEN:
+                    case FigureNames.ROOK:
+
+                }
+            }
+        }
+        return false
     }
 }

@@ -16,6 +16,15 @@ const Timer: FC<TimerProps> = ({ currentPlayer, restart }) => {
         startTimer()
     }, [currentPlayer])
 
+    useEffect(() => {
+        if (blackTime === 0) {
+            handleRestart()
+        }
+        if (whiteTime === 0) {
+            handleRestart()
+        }
+    }, [blackTime, whiteTime])
+
     function startTimer() {
         if (timer.current) {
             clearInterval(timer.current)
@@ -30,6 +39,7 @@ const Timer: FC<TimerProps> = ({ currentPlayer, restart }) => {
     function decrementWhiteTimer() {
         setWhiteTime(prev => prev - 1)
     }
+
 
     const handleRestart = () => {
         setWhiteTime(300)

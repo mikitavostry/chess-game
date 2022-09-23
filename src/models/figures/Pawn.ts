@@ -29,12 +29,21 @@ export class Pawn extends Figure {
             return true
         }
 
+        if (this.pawnCanAttack(target)) {
+            return true
+        }
+
+        return false
+    }
+
+    pawnCanAttack(target: Cell): boolean {
+        const direction = this.cell.figure?.color === Colors.BLACK ? 1 : -1
+
         if (target.y === this.cell.y + direction
             && (target.x === this.cell.x + 1 || target.x === this.cell.x - 1)
             && this.cell.isEnemy(target)) {
             return true
         }
-
         return false
     }
 
