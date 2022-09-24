@@ -9,21 +9,18 @@ interface TimerProps {
 
 const Timer: FC<TimerProps> = ({ currentPlayer, restart }) => {
     const [blackTime, setBlackTime] = useState(300)
-    const [whiteTime, setWhiteTime] = useState(300);
-    const timer = useRef<null | ReturnType<typeof setInterval>>(null)
+    const [whiteTime, setWhiteTime] = useState(300)
+    const timer = useRef<ReturnType<typeof setInterval>>()
 
     useEffect(() => {
         startTimer()
     }, [currentPlayer])
 
     useEffect(() => {
-        if (blackTime === 0) {
-            handleRestart()
+        if (blackTime === 0 || whiteTime === 0) {
+            clearInterval(timer.current)
         }
-        if (whiteTime === 0) {
-            handleRestart()
-        }
-    }, [blackTime, whiteTime])
+    }, [whiteTime, blackTime])
 
     function startTimer() {
         if (timer.current) {
@@ -36,24 +33,36 @@ const Timer: FC<TimerProps> = ({ currentPlayer, restart }) => {
     function decrementBlackTimer() {
         setBlackTime(prev => prev - 1)
     }
+
     function decrementWhiteTimer() {
         setWhiteTime(prev => prev - 1)
     }
 
 
-    const handleRestart = () => {
+    function handleRestart() {
         setWhiteTime(300)
         setBlackTime(300)
+        startTimer()
         restart()
     }
 
     return (
         <div>
             <div>
-                <button onClick={handleRestart}>Restart game</button>
+                <button onClick={() => handleRestart()}>Restart game</button>
             </div>
-            <h2>Black - {blackTime}</h2>
-            <h2>White - {whiteTime}</h2>
+            {blackTime !== 180
+                ?
+                <h2>Black - {blackTime}</h2>
+                :
+                <h2>White won</h2>
+            }
+            {whiteTime !== 0
+                ?
+                <h2>White - {whiteTime}</h2>
+                :
+                <h2>Black won</h2>
+            }
         </div>
     );
 };
