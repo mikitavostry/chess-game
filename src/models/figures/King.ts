@@ -32,7 +32,6 @@ export class King extends Figure {
     isKingUnderAtttack(target: Cell): boolean {
         for (let i = 0; i < this.cell.board.cells.length; i++) {
             const row: Cell[] = this.cell.board.cells[i]
-            console.log(row)
             for (let j = 0; j < row.length; j++) {
                 const cell: Cell = row[j]
                 if (cell.figure?.color !== this.color) {
@@ -53,8 +52,7 @@ export class King extends Figure {
                             const direction = cell.figure?.color === Colors.BLACK ? 1 : -1
 
                             if (target.y === cell.y + direction
-                                && (target.x === cell.x + 1 || target.x === cell.x - 1)
-                                && cell.isEnemy(target)) {
+                                && (target.x === cell.x + 1 || target.x === cell.x - 1)) {
                                 return true
                             }
                             break
